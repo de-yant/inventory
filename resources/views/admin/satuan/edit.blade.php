@@ -1,0 +1,36 @@
+@extends('layouts.app')
+
+@section('content')
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb iq-bg-primary">
+       <li class="breadcrumb-item"><a href="dashboard"><i class="ri-home-4-line mr-1 float-left"></i>Dashboard</a></li>
+       <li class="breadcrumb-item"><a href="/satuanbarang"></i>Satuan Barang</a></li>
+       <li class="breadcrumb-item active" aria-current="page">Edit Data</li>
+    </ol>
+ </nav>
+ <div class="card">
+    <div class="card-header d-flex justify-content-between">
+       <div class="header-title">
+          <h4 class="card-title">Edit Data Satuan Barang</h4>
+       </div>
+    </div>
+    <div class="card-body">
+       <form action="{{ url('satuanbarang/'. $satuan->id) .'/update' }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="form-group">
+            <label for="satuanbarang_nama" class="form-label">Satuan Barang <span class="text-danger">*</span></label>
+            <input type="text" name="satuanbarang_nama" id="satuanbarang_nama" class="form-control" placeholder="" value="{{ $satuan->satuanbarang_nama }}">
+        </div>
+        <div class="form-group">
+            <label for="satuanbarang_ket" class="form-label">Keterangan<span class="text-danger"></span></label>
+            <textarea class="form-control -bottom-3" name="satuanbarang_ket" id="satuanbarang_ket" class="form-control" rows="4">{{ $satuan->satuanbarang_ket }}</textarea>
+        </div>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+          <a href="jenisbarang"><button type="submin" class="btn bg-danger">Kembali</button></a>
+       </form>
+    </div>
+ </div>
+@endsection
+

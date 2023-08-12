@@ -3,7 +3,7 @@
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb iq-bg-primary">
-       <li class="breadcrumb-item"><a href="dashboard"><i class="ri-home-4-line mr-1 float-left"></i>Dashboard</a></li>
+       <li class="breadcrumb-item"><a href="{{ url('dashboard') }}"><i class="ri-home-4-line mr-1 float-left"></i>Dashboard</a></li>
        <li class="breadcrumb-item active" aria-current="page">Barang Masuk</li>
     </ol>
  </nav>
@@ -15,7 +15,7 @@
                 <div class="iq-header-title">
                    <h4 class="card-title mb-0">Data Barang Masuk</h4>
                 </div>
-                <a class="btn btn-purple"  data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Tambahbarangmasuk">Tambah Data</a>
+                <a href="{{ url('/barangmasuk/tambah' )}}" class="btn btn-purple">Tambah Data</a>
              </div>
              <div class="card-body">
                 @if (Session::has('success'))
@@ -32,9 +32,10 @@
                               <th scope="col">KODE BARANG MASUK</th>
                               <th scope="col">KODE BARANG</th>
                               <th scope="col">PENJUAL</th>
-                              <th scope="col">BARANG</th>
+                              {{-- <th scope="col">BARANG</th> --}}
                               <th scope="col">JUMLAH MASUK</th>
-                              <th scope="col">AKSI</th>
+                              {{-- <th scope="col">SATUAN</th> --}}
+                              {{-- <th scope="col">AKSI</th> --}}
                            </tr>
                         </thead>
                         <tbody>
@@ -42,20 +43,21 @@
                          @foreach ($barangmasuk as $row )
                          <tr>
                              <th  scope="row">{{ $loop->iteration }}</th>
+                             <td>{{ $row->bm_tanggal }}</td>
                              <td>{{ $row->bm_kode }}</td>
                              <td>{{ $row->barang_kode }}</td>
-                             <td>{{ $row->pembeli_id }}</td>
-                             <td>{{ $row->barang_id }}</td>
-                             <td>{{ $row->bm_tanggal }}</td>
+                             <td>{{ $row->penjual_id }}</td>
+                             {{-- <td>{{ $row->baran }}</td> --}}
                              <td>{{ $row->bm_jumlah }}</td>
-                             <td>
+                             {{-- <td>{{ $row->satuan }}</td> --}}
+                             {{-- <td>
                                  <div class="flex align-items-center list-user-action">
                                      <a class="btn btn-sm bg-secondary" data-toggle="tooltip" data-id="{{ $row->id }}" data-placement="top" title=""
                                          data-original-title="Edit" href="{{ url('/barangmasuk/' . $row->id . '/edit' )}}"><i class="ri-pencil-line mr-0"></i></a>
                                      <a class="btn btn-sm bg-danger delete" data-toggle="tooltip" data-id="{{ $row->id }}" data-placement="top" title=""
                                          data-original-title="Hapus" href="#"><i class="ri-delete-bin-line mr-0"></i></a>
                                  </div>
-                              </td>
+                              </td> --}}
                          </tr>
                          @endforeach
                          @else
@@ -71,9 +73,6 @@
         </div>
     </div>
 </div>
-
-
-{{-- @include('admin.barangMasuk.tambah') --}}
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.slim.js" integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>

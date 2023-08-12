@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\BarangKeluar;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
 
 class LapKeluarController extends Controller
 {
@@ -12,54 +14,16 @@ class LapKeluarController extends Controller
      */
     public function index()
     {
-        return view('admin.laporan.laporanKeluar.index');
+        $barangkeluar = BarangKeluar::with('jenis','pembeli')->paginate(20);
+
+        return view('admin.laporan.laporanKeluar.index', compact('barangkeluar'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function cetakpdf()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $barangkeluar = BarangKeluar::limit(10)->get();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('admin.laporan.laporanKeluar.cetak', compact('barangkeluar'));
+        return $pdf->stream('laporan-keluar.pdf');
     }
 }

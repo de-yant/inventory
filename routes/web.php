@@ -86,6 +86,9 @@ Route::middleware(['auth', 'verified'])->group(function(){
     //Barang
     Route::get('barang', [BarangController::class, 'index'])->name('barang.index');
     Route::post('barang', [BarangController::class, 'store'])->name('barang.store');
+    Route::get('barang/{id}', [BarangController::class, 'show'])->name('barang.show');
+    Route::get('barang/add', [BarangController::class, 'add'])->name('barang.add');
+    // Route::get('barang/tambah', [BarangController::class, 'create'])->name('barang.create');
     Route::put('barang/{id}/update', [BarangController::class, 'update'])->name('barang.update');
     Route::get('barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
     Route::get('barang/{id}/destroy', [BarangController::class, 'destroy'])->name('barang.destroy');
@@ -107,6 +110,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     //Barang Masuk
     Route::get('barangmasuk', [BarangMasukController::class, 'index'])->name('barangmasuk.index');
     Route::post('barangmasuk', [BarangMasukController::class, 'store'])->name('barangmasuk.store');
+    Route::get('barangmasuk/tambah', [BarangMasukController::class, 'create'])->name('barangmasuk.create');
     Route::put('barangmasuk/{id}/update', [BarangMasukController::class, 'update'])->name('barangmasuk.update');
     Route::get('barangmasuk/{id}/edit', [BarangMasukController::class, 'edit'])->name('barangmasuk.edit');
     Route::get('barangmasuk/{id}/destroy', [BarangMasukController::class, 'destroy'])->name('barangmasuk.destroy');
@@ -114,11 +118,13 @@ Route::middleware(['auth', 'verified'])->group(function(){
     //Barang Keluar
     Route::get('barangkeluar', [BarangKeluarController::class, 'index'])->name('barangkeluar.index');
     Route::post('barangkeluar', [BarangKeluarController::class, 'store'])->name('barangkeluar.store');
+    Route::get('barangkeluar/tambah', [BarangKeluarController::class, 'create'])->name('barangkeluar.create');
     Route::put('barangkeluar/{id}/update', [BarangKeluarController::class, 'update'])->name('barangkeluar.update');
     Route::get('barangkeluar/{id}/edit', [BarangKeluarController::class, 'edit'])->name('barangkeluar.edit');
     Route::get('barangkeluar/{id}/destroy', [BarangKeluarController::class, 'destroy'])->name('barangkeluar.destroy');
 
     //Laporan Barang Masuk
+    Route::get('laporanmasuk/cetakpdf', [LapMasukController::class, 'cetakpdf'])->name('laporanmasuk.cetakpdf');
     Route::get('laporanmasuk', [LapMasukController::class, 'index'])->name('laporanmasuk.index');
     Route::post('laporanmasuk', [LapMasukController::class, 'store'])->name('laporanmasuk.store');
     Route::put('laporanmasuk/{id}/update', [LapMasukController::class, 'update'])->name('laporanmasuk.update');
@@ -126,6 +132,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('laporanmasuk/{id}/destroy', [LapMasukController::class, 'destroy'])->name('laporanmasuk.destroy');
 
     //Laporan Barang Keluar
+    Route::get('laporankeluar/cetakpdf', [LapKeluarController::class, 'cetakpdf'])->name('laporankeluar.cetakpdf');
     Route::get('laporankeluar', [LapKeluarController::class, 'index'])->name('laporankeluar.index');
     Route::post('laporankeluar', [LapKeluarController::class, 'store'])->name('laporankeluar.store');
     Route::put('laporankeluar/{id}/update', [LapKeluarController::class, 'update'])->name('laporankeluar.update');
@@ -133,6 +140,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('laporankeluar/{id}/destroy', [LapKeluarController::class, 'destroy'])->name('laporankeluar.destroy');
 
     //Laporan Stok Barang
+    Route::get('laporanstok/cetakpdf', [LapStokController::class, 'cetakpdf'])->name('laporanstok.cetakpdf');
     Route::get('laporanstok', [LapStokController::class, 'index'])->name('laporanstok.index');
     Route::post('laporanstok', [LapStokController::class, 'store'])->name('laporanstok.store');
     Route::put('laporanstok/{id}/update', [LapStokController::class, 'update'])->name('laporanstok.update');

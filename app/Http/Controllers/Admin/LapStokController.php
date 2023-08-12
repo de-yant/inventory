@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use App\Models\Admin\Barang;
 use Illuminate\Http\Request;
+use App\Models\Admin\BarangMasuk;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
 
 class LapStokController extends Controller
 {
@@ -12,7 +16,33 @@ class LapStokController extends Controller
      */
     public function index()
     {
-        return view('admin.laporan.laporanStok.index');
+        $barangstok = Barang::all();
+        // $barangstok = Barang::with('barangmasuk')->paginate(20);
+        // $totalbarangmasuk = DB::table('barang_masuks')->select([
+        //     DB::raw('SUM(bm_jumlah) as total_barang_masuk'),
+        //     DB::raw('barang_kode as kode_barang'),
+        // ])
+        //     ->groupBy('barang_kode')
+        //     ->get();
+
+        // $totalbarangmasuk = BarangMasuk::select([
+        //     DB::raw('SUM(bm_jumlah) as total_barang_masuk'),
+        //     DB::raw('barang_kode as kode_barang'),
+        // ])
+        //     ->groupBy('barang_kode')
+        //     ->get();
+
+    // dd($totalbarangmasuk);
+
+        return view('admin.laporan.laporanStok.index', compact('barangstok' ));
+    }
+
+    public function cetakpdf()
+    {
+        $barangstok = Barang::limit(10)->get();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('admin.laporan.laporanStok.cetak', compact('barangstok'));
+        return $pdf->stream('laporan-stok.pdf');
     }
 
     /**

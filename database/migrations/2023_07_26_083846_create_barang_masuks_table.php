@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('barang_masuks', function (Blueprint $table) {
             $table->id();
-            $table->string('bm_kode');
+            $table->string('bm_kode')->unique();
             $table->string('barang_kode');
             $table->string('penjual_id');
-            $table->string('barang_id');
             $table->date('bm_tanggal');
-            $table->integer('bm_jumlah');
-            $table->softDeletes();
+            $table->integer('bm_jumlah')->default(0);
             $table->timestamps();
         });
     }

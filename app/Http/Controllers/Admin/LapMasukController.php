@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use App\Models\Admin\BarangMasuk;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
 
 class LapMasukController extends Controller
 {
@@ -12,54 +15,17 @@ class LapMasukController extends Controller
      */
     public function index()
     {
-        return view('admin.laporan.laporanMasuk.index');
+        $barangmasuk = BarangMasuk::with('penjual')->paginate(20);
+        return view('admin.laporan.laporanMasuk.index', compact('barangmasuk'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function cetakpdf()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // $barangmasuk = BarangMasuk::limit(10)->get();
+        // return view('admin.laporan.laporanMasuk.cetak', compact('barangmasuk'));
+        $barangmasuk = BarangMasuk::limit(10)->get();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('admin.laporan.laporanMasuk.cetak', compact('barangmasuk'));
+        return $pdf->stream('laporan-masuk.pdf');
     }
 }

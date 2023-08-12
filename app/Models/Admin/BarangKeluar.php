@@ -16,9 +16,17 @@ class BarangKeluar extends Model
         'bk_kode',
         'barang_kode',
         'pembeli_id',
-        'barang_id',
-        'bk_tujuan',
         'bk_jumlah',
     ];
     protected $hidden;
+
+    public function pembeli()
+    {
+        return $this->belongsTo(Pembeli::class, 'pembeli_id', 'id');
+    }
+
+    public function jenis()
+    {
+        return $this->belongsTo(JenisBarang::class, 'jenis_id', 'id');
+    }
 }

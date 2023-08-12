@@ -15,4 +15,9 @@ class SatuanBarang extends Model
         'satuanbarang_nama',
         'satuanbarang_ket'
     ];
+
+    public function barang()
+    {
+        return $this->hasMany(Barang::class, 'satuan_id', 'id');
+    }
 }

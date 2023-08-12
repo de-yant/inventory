@@ -13,14 +13,17 @@ return new class extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_id')->nullable();
-            $table->string('satuan_id')->nullable();
-            $table->string('merk_id')->nullable();
-            $table->string('barang_kode');
+            $table->string('barang_gambar')->nullable();
+            $table->string('jenis_id');
+            $table->string('satuan_id');
+            $table->string('merk_id');
+            $table->string('barang_kode')->unique();
             $table->string('barang_nama');
             $table->string('barang_harga');
-            $table->string('barang_stok');
-            $table->string('barang_gambar');
+            $table->string('barang_stok')->default(0);
+            $table->string('barang_masuk')->default(0);
+            $table->string('barang_keluar')->default(0);
+            $table->string('barang_ket')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

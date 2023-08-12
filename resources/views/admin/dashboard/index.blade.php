@@ -3,7 +3,7 @@
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb iq-bg-primary">
-       <li class="breadcrumb-item"><a href="dashboard"><i class="ri-home-4-line mr-1 float-left"></i>Dashboard</a></li>
+       <li class="breadcrumb-item"><a href="{{ url('dashboard') }}"><i class="ri-home-4-line mr-1 float-left"></i>Dashboard</a></li>
     </ol>
  </nav>
         <div class="row">
@@ -13,9 +13,9 @@
                         <div class="card-header card-height bg-primary text-center rounded">
                             <h4 class="text-white"><b>Jenis Barang</b></h4>
                         </div>
-                        <h2 class="text-center"><span class="counter">35</span></h2>
+                        <h2 class="text-center"><span class="counter">{{ $jenis }}</span></h2>
                         <div class="iq-progress-bar bg-primary-light mt-2">
-                            <span class="bg-primary iq-progress progress-1" data-percent="10"></span>
+                            <span class="bg-primary iq-progress progress-1" data-percent="2"></span>
                         </div>
                     </div>
                 </div>
@@ -26,9 +26,9 @@
                         <div class="card-header card-height bg-warning text-center rounded">
                             <h4 class="text-white"><b>Satuan Barang</b></h4>
                         </div>
-                        <h2 class="text-center"><span class="counter">30</span></h2>
+                        <h2 class="text-center"><span class="counter">{{ $satuan }}</span></h2>
                         <div class="iq-progress-bar bg-primary-light mt-2">
-                            <span class="bg-warning iq-progress progress-1" data-percent="100"></span>
+                            <span class="bg-warning iq-progress progress-1" data-percent="4"></span>
                         </div>
                     </div>
                 </div>
@@ -39,9 +39,9 @@
                         <div class="card-header card-height bg-info text-center rounded">
                             <h4 class="text-white"><b>Merk Barang</b></h4>
                         </div>
-                        <h2 class="text-center"><span class="counter">1</span></h2>
+                        <h2 class="text-center"><span class="counter">{{ $merk }}</span></h2>
                         <div class="iq-progress-bar bg-primary-light mt-2">
-                            <span class="bg-info iq-progress progress-1" data-percent="10"></span>
+                            <span class="bg-info iq-progress progress-1" data-percent="3"></span>
                         </div>
                     </div>
                 </div>
@@ -52,9 +52,9 @@
                         <div class="card-header card-height bg-purple text-center rounded">
                             <h4 class="text-white"><b>Barang</b></h4>
                         </div>
-                        <h2 class="text-center"><span class="counter">2</span></h2>
+                        <h2 class="text-center"><span class="counter">{{ $barang }}</span></h2>
                         <div class="iq-progress-bar bg-primary-light mt-2">
-                            <span class="bg-purple iq-progress progress-1" data-percent="5"></span>
+                            <span class="bg-purple iq-progress progress-1" data-percent="2"></span>
                         </div>
                     </div>
                 </div>
@@ -65,9 +65,9 @@
                         <div class="card-header card-height bg-green text-center rounded">
                             <h4 class="text-white"><b>Barang Masuk</b></h4>
                         </div>
-                        <h2 class="text-center"><span class="counter">50</span></h2>
+                        <h2 class="text-center"><span class="counter">{{ $bm }}</span></h2>
                         <div class="iq-progress-bar bg-primary-light mt-2">
-                            <span class="bg-green iq-progress progress-1" data-percent="50"></span>
+                            <span class="bg-green iq-progress progress-1" data-percent="6"></span>
                         </div>
                     </div>
                 </div>
@@ -78,9 +78,9 @@
                         <div class="card-header card-height bg-red text-center rounded">
                             <h4 class="text-white"><b>Barang Keluar</b></h4>
                         </div>
-                        <h2 class="text-center"><span class="counter">20</span></h2>
+                        <h2 class="text-center"><span class="counter">{{ $bk }}</span></h2>
                         <div class="iq-progress-bar bg-primary-light mt-2">
-                            <span class="bg-red iq-progress progress-1" data-percent="20"></span>
+                            <span class="bg-red iq-progress progress-1" data-percent="6"></span>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                         <div class="card-header card-height bg-orange text-center rounded">
                             <h4 class="text-white"><b>Pembeli</b></h4>
                         </div>
-                        <h2 class="text-center"><span class="counter">5</span></h2>
+                        <h2 class="text-center"><span class="counter">{{ $pembeli }}</span></h2>
                         <div class="iq-progress-bar bg-primary-light mt-2">
                             <span class="bg-orange iq-progress progress-1" data-percent="5"></span>
                         </div>
@@ -104,7 +104,7 @@
                         <div class="card-header card-height bg-gray text-center rounded">
                             <h4 class="text-white"><b>Penjual</b></h4>
                         </div>
-                        <h2 class="text-center"><span class="counter">4</span></h2>
+                        <h2 class="text-center"><span class="counter">{{ $penjual }}</span></h2>
                         <div class="iq-progress-bar bg-primary-light mt-2">
                             <span class="bg-gray iq-progress progress-1" data-percent="4"></span>
                         </div>

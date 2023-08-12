@@ -27,17 +27,17 @@ class UserRolePermissionSeeder extends Seeder
         try{
             $staff = User::create(array_merge([
                 'email' => 'staff@mail.com',
-                'name' =>'staff name',
+                'name' =>'Staff',
                 ], $default_user_value));
 
             $admin = User::create(array_merge([
                 'email' => 'admin@mail.com',
-                'name' =>'admin name',
+                'name' =>'Admin',
                 ], $default_user_value));
 
             $superadmin = User::create(array_merge([
                 'email' => 'superadmin@mail.com',
-                'name' =>'superadmin name',
+                'name' =>'Super Admin',
                 ], $default_user_value));
 
             $role_staff = Role::create(['name' => 'staff']);

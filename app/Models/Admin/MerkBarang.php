@@ -16,4 +16,9 @@ class MerkBarang extends Model
         'merkbarang_ket'
     ];
     protected $hidden;
+
+    public function barang()
+    {
+        return $this->hasMany(Barang::class, 'merk_id', 'id');
+    }
 }

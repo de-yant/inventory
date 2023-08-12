@@ -17,4 +17,9 @@ class Penjual extends Model
         'penjual_telp',
     ];
     protected $hidden;
+
+    public function barangmasuk()
+    {
+        return $this->hasMany(BarangMasuk::class, 'penjual_id', 'id');
+    }
 }

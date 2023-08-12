@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('barang_keluars', function (Blueprint $table) {
             $table->id();
             $table->date('bk_tanggal');
-            $table->string('bk_kode');
+            $table->string('bk_kode')->unique();
             $table->string('barang_kode');
             $table->string('pembeli_id');
-            $table->string('barang_id');
-            $table->string('bk_tujuan');
-            $table->string('bk_jumlah');
+            $table->string('bk_jumlah')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

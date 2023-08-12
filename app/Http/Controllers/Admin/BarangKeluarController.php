@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Admin\Barang;
 use Illuminate\Http\Request;
+use App\Models\Admin\Pembeli;
+use App\Models\Admin\JenisBarang;
 use App\Models\Admin\BarangKeluar;
+use App\Models\Admin\SatuanBarang;
+use App\Http\Controllers\Controller;
 
 class BarangKeluarController extends Controller
 {
@@ -13,9 +17,9 @@ class BarangKeluarController extends Controller
      */
     public function index()
     {
-        return view('admin.barangkeluar.index')->with([
-            'barangkeluar' => BarangKeluar::all()
-        ]);
+        $barangkeluar = BarangKeluar::with('jenis','pembeli')->paginate(20);
+
+        return view('admin.barangkeluar.index', compact('barangkeluar'));
     }
 
     /**
@@ -23,7 +27,11 @@ class BarangKeluarController extends Controller
      */
     public function create()
     {
-        //
+        $jenis      = JenisBarang::all();
+        $barang     = Barang::all();
+        $pembeli    = Pembeli::all();
+        $satuan     = SatuanBarang::all();
+        return view('admin.barangkeluar.tambah', compact('jenis','barang', 'pembeli', 'satuan'));
     }
 
     /**
@@ -31,7 +39,44 @@ class BarangKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $barangkeluar = BarangKeluar::latest()->first();
+        $kodekeluar = 'BK';
+        $kodetanggal = date('md');
+        if($barangkeluar == null){
+            $kode = '0001';
+        }else{
+            $kode = (int)substr($barangkeluar->bk_kode, 9, 4) + 1;
+            $kode = str_pad($kode, 4, '0', STR_PAD_LEFT);
+        }
+        $kodebarang = $kodekeluar.'-'.$kodetanggal.'-'.$kode;
+        $request->merge([
+            'bk_kode' => $kodebarang,
+        ]);
+
+        // $kodekeluar = 'BK';
+        // $kodetanggal = date('md');
+        // if($kodekeluar == null){
+        //     $kode = '0001';
+        // }else{
+        //     $kode = (int)substr($barangkeluar->bk_kode, 9, 4) + 1;
+        //     $kode = str_pad($kode, 4, '0', STR_PAD_LEFT);
+        // }
+        // $kodebarang = $kodekeluar.'-'.$kodetanggal.'-'.$kode;
+        // $request->merge([
+        //     'bk_kode' => $kodebarang,
+        // ]);
+
+        // dd($request->all());
+
+        $barangkeluar = BarangKeluar::create([
+            'bk_kode'           => $request->bk_kode,
+            'bk_tanggal'        => $request->bk_tanggal,
+            'pembeli_id'        => $request->pembeli_id,
+            'barang_kode'       => $request->barang_kode,
+            'bk_jumlah'         => $request->bk_jumlah,
+        ]);
+
+        return redirect()->route('barangkeluar.index')->with('success', 'Data Berhasil Disimpan!');
     }
 
     /**
@@ -47,7 +92,12 @@ class BarangKeluarController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $barangkeluar   = BarangKeluar::findOrFail($id);
+        $jenis          = JenisBarang::all();
+        $barang         = Barang::all();
+        $pembeli        = Pembeli::all();
+        $satuan         = SatuanBarang::all();
+        return view('admin.barangkeluar.edit', compact('barangkeluar', 'jenis', 'barang', 'pembeli', 'satuan'));
     }
 
     /**
@@ -55,7 +105,10 @@ class BarangKeluarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $barangkeluar = BarangKeluar::findOrFail($id);
+        $barangkeluar->update($request->all());
+
+        return redirect()->route('barangkeluar.index')->with('success', 'Data Berhasil Diupdate!');
     }
 
     /**
@@ -63,6 +116,9 @@ class BarangKeluarController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $barangkeluar = BarangKeluar::findOrFail($id);
+        $barangkeluar->delete();
+
+        return redirect()->route('barangkeluar.index')->with('success', 'Data Berhasil Dihapus!');
     }
 }

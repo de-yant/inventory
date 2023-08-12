@@ -37,8 +37,32 @@
        <li class="breadcrumb-item active" aria-current="page">Pengaturan Profile</li>
     </ol>
  </nav>
-
- <p>isi di sini</p>
+<div class="row">
+    <div class="col-md-12 col-md-6">
+        <div class="card-transparent card-block card-stretch card-height">
+            <div class="card-body text-center p-0">
+                <div class="item">
+                    <div class="odr-img">
+                        {{-- <img src="{{ asset('images/'.$brg->barang_gambar) }}" alt="" style="width: 50px"> --}}
+                        <img src="../assets/images/user/02.jpg" class="img-fluid rounded-circle avatar-90 m-auto" alt="image">
+                    </div>
+                    <div class="odr-content rounded">
+                        <h4 class="mb-2">Kaylynn Press</h4>
+                        <p class="mb-3">kaylynnpress@gmail.com</p>
+                        <ul class="list-unstyled mb-3">
+                            <li class="bg-secondary-light rounded-circle iq-card-icon-small mr-4"><i class="ri-mail-open-line m-0"></i></li>
+                            <li class="bg-primary-light rounded-circle iq-card-icon-small mr-4"><i class="ri-chat-3-line m-0"></i></li>
+                            <li class="bg-success-light rounded-circle iq-card-icon-small"><i class="ri-phone-line m-0"></i></li>
+                        </ul>
+                        <div class="pt-3 border-top">
+                            <a href="#" class="btn btn-primary">Message</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 

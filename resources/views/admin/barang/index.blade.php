@@ -3,7 +3,7 @@
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb iq-bg-primary">
-       <li class="breadcrumb-item"><a href="dashboard"><i class="ri-home-4-line mr-1 float-left"></i>Dashboard</a></li>
+       <li class="breadcrumb-item"><a href="{{ url('dashboard') }}"><i class="ri-home-4-line mr-1 float-left"></i>Dashboard</a></li>
        <li class="breadcrumb-item active" aria-current="page">Barang</li>
     </ol>
  </nav>
@@ -15,9 +15,14 @@
                 <div class="iq-header-title">
                    <h4 class="card-title mb-0">Data Barang</h4>
                 </div>
-                <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#Tambahbarang">Tambah Data</a>
+                <a href="{{ url('barang/add' )}}" class="btn btn-purple">Tambah Data</a>
              </div>
              <div class="card-body">
+                @if (Session::has('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
                 <table class="table">
                    <thead>
                       <tr>
@@ -25,41 +30,74 @@
                          <th scope="col">GAMBAR</th>
                          <th scope="col">KODE BARANG</th>
                          <th scope="col">NAMA BARANG</th>
-                         <th scope="col">JENIS</th>
-                         <th scope="col">SATUAN</th>
-                         <th scope="col">MERK</th>
                          <th scope="col">STOK AWAL</th>
                          <th scope="col">HARGA</th>
                          <th scope="col">AKSI</th>
                       </tr>
                    </thead>
                    <tbody>
-                      <tr>
-                         <th scope="row">1</th>
-                         <td>Gambar</td>
-                         <td>BRG-KODE</td>
-                         <td>Nama Barang</td>
-                         <td>Jenis</td>
-                         <td>Satuan</td>
-                         <td>Merk</td>
-                         <td>10</td>
-                         <td>10000</td>
-                         <td>
-                             <div class="flex align-items-center list-user-action">
-                                 <a class="btn btn-sm bg-success" data-toggle="tooltip" data-placement="top" title=""
-                                     data-original-title="Edit" href="#"><i class="ri-pencil-line mr-0"></i></a>
-                                 <a class="btn btn-sm bg-danger" data-toggle="tooltip" data-placement="top" title=""
-                                     data-original-title="Hapus" href="#"><i class="ri-delete-bin-line mr-0"></i></a>
-                             </div>
-                          </td>
-                      </tr>
+                    @if($barangs->count() > 0)
+                    @foreach ($barangs as $brg )
+                    <tr>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>
+                            <img src="{{ asset('images/'.$brg->barang_gambar) }}" alt="" style="width: 50px">
+                        </td>
+                        <td>{{ $brg->barang_kode}}</td>
+                        <td>{{ $brg->barang_nama }}</td>
+                        <td>{{ $brg->barang_stok }}</td>
+                        <td>{{ $brg->barang_harga }}</td>
+                        <td>
+                            <div class="flex align-items-center list-user-action">
+                                <a class="btn btn-sm bg-info" data-toggle="tooltip" data-id="{{ $brg->id }}" data-placement="top" title=""
+                                    data-original-title="Detail" href="{{ url('/barang/' . $brg->id )}}"><i class="ri-eye-line mr-0"></i></a>
+                                <a class="btn btn-sm bg-secondary" data-toggle="tooltip" data-id="{{ $brg->id }}" data-placement="top" title=""
+                                    data-original-title="Edit" href="{{ url('/barang/' . $brg->id . '/edit' )}}"><i class="ri-pencil-line mr-0"></i></a>
+                                <a class="btn btn-sm bg-danger delete" data-toggle="tooltip" data-id="{{ $brg->id }}" data-placement="top" title=""
+                                    data-original-title="Hapus" href="#"><i class="ri-delete-bin-line mr-0"></i></a>
+                            </div>
+                         </td>
+                     </tr>
+                    @endforeach
+                    @else
+                            <tr>
+                                <td class="text-center" colspan="10">Data Barang Tidak Ada</td>
+                            </tr>
+                            @endif
                    </tbody>
                 </table>
              </div>
-
-             @include('admin.barang.tambah')
           </div>
       </div>
     </div>
 </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.7.0.slim.js" integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>
+
+ <script>
+    $('.delete').click(function(){
+            var barang_id = $(this).attr('data-id');
+            var url = "{{ route('barang.destroy', ':barang_id') }}";
+
+            swal({
+                title: "Yakin?",
+                text: "Kamu akan menghapus data ini!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                console.log(willDelete);
+                if (willDelete) {
+                    window.location = "/barang/"+barang_id+"/destroy";
+                    swal("Data Berhasil Dihapus", {
+                    icon: "success",
+                    });
+                } else {
+                    swal("Data kamu aman!");
+                }
+            });
+        });
+</script>
 @endsection

@@ -27,8 +27,8 @@
                           <thead>
                              <tr>
                                 <th class="border-bottom-0" width="1%" scope="col">NO</th>
-                                <th scope="col">JENIS</th>
-                                <th scope="col">KETERANGAN</th>
+                                <th scope="col">JENIS BARANG</th>
+                                <th scope="col">KETERANGAN BARANG</th>
                                 <th width="20%" scope="col">AKSI</th>
                              </tr>
                           </thead>

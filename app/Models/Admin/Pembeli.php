@@ -17,4 +17,9 @@ class Pembeli extends Model
         'pembeli_telp',
     ];
     protected $hidden;
+
+    public function barangkeluar()
+    {
+        return $this->hasMany(BarangKeluar::class, 'pembeli_id', 'id');
+    }
 }

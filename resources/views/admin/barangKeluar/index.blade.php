@@ -15,7 +15,7 @@
                 <div class="iq-header-title">
                    <h4 class="card-title mb-0">Data Barang Keluar</h4>
                 </div>
-                <a class="btn btn-purple"  data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Tambahbarangkeluar">Tambah Data</a>
+                <a href="{{ url('/barangkeluar/tambah' )}}" class="btn btn-purple">Tambah Data</a>
              </div>
              <div class="card-body">
                 @if (Session::has('success'))
@@ -31,32 +31,33 @@
                               <th scope="col">TANGGAL KELUAR</th>
                               <th scope="col">KODE BARANG KELUAR</th>
                               <th scope="col">KODE BARANG</th>
-                              <th scope="col">PENJUAL</th>
-                              <th scope="col">BARANG</th>
+                              <th scope="col">PEMBELI</th>
+                              {{-- <th scope="col">NAMA BARANG</th> --}}
+                              <th scope="col">TUJUAN</th>
                               <th scope="col">JUMLAH KELUAR</th>
-                              <th scope="col">AKSI</th>
+                              {{-- <th scope="col">AKSI</th> --}}
                            </tr>
                         </thead>
                         <tbody>
                          @if($barangkeluar->count() > 0)
-                         @foreach ($barangkelaur as $row )
+                         @foreach ($barangkeluar as $row )
                          <tr>
                              <th  scope="row">{{ $loop->iteration }}</th>
+                             <td>{{ $row->bk_tanggal }}</td>
                              <td>{{ $row->bk_kode }}</td>
                              <td>{{ $row->barang_kode }}</td>
-                             <td>{{ $row->barang_kode }}</td>
-                             <td>{{ $row->barang_id }}</td>
-                             <td>{{ $row->barang_id }}</td>
-                             <td>{{ $row->bk_tujuan }}</td>
+                             <td>{{ $row->pembeli->pembeli_nama }}</td>
+                             {{-- <td>{{ $row->jenis }}</td> --}}
+                             <td>{{ $row->pembeli->pembeli_alamat }}</td>
                              <td>{{ $row->bk_jumlah }}</td>
-                             <td>
+                             {{-- <td>
                                  <div class="flex align-items-center list-user-action">
                                      <a class="btn btn-sm bg-secondary" data-toggle="tooltip" data-id="{{ $row->id }}" data-placement="top" title=""
                                          data-original-title="Edit" href="{{ url('/barangkeluar/' . $row->id . '/edit' )}}"><i class="ri-pencil-line mr-0"></i></a>
                                      <a class="btn btn-sm bg-danger delete" data-toggle="tooltip" data-id="{{ $row->id }}" data-placement="top" title=""
                                          data-original-title="Hapus" href="#"><i class="ri-delete-bin-line mr-0"></i></a>
                                  </div>
-                              </td>
+                              </td> --}}
                          </tr>
                          @endforeach
                          @else
@@ -73,8 +74,6 @@
     </div>
 </div>
 
-
-{{-- @include('admin.barangKeluar.tambah') --}}
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.slim.js" integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>

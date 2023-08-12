@@ -16,12 +16,17 @@ class JenisBarangController extends Controller
 
     public function store(Request $request)
     {
-        JenisBarang::create([
+        $this->validate($request, [
+            'jenisbarang_nama' => 'required',
+            'jenisbarang_ket' => 'required'
+        ]);
+
+        $jenis = JenisBarang::create([
             'jenisbarang_nama' => $request->jenisbarang_nama,
             'jenisbarang_ket' => $request->jenisbarang_ket
-        ])->save();
+        ]);
 
-        return redirect()->back()->with('success','Jenis Data Barang Berhasil Diinput');
+        return redirect()->route('jenisbarang.index')->with('success', 'Jenis Barang Berhasil Ditambahkan');
     }
 
     public function edit($id)

@@ -3,7 +3,7 @@
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb iq-bg-primary">
-       <li class="breadcrumb-item"><a href="dashboard"><i class="ri-home-4-line mr-1 float-left"></i>Dashboard</a></li>
+       <li class="breadcrumb-item"><a href="{{ url('dashboard') }}"><i class="ri-home-4-line mr-1 float-left"></i>Dashboard</a></li>
        <li class="breadcrumb-item active" aria-current="page">Laporan Stok Barang</li>
     </ol>
  </nav>
@@ -15,48 +15,46 @@
                 <div class="iq-header-title">
                    <h4 class="card-title mb-0">Laporan Stok Barang</h4>
                 </div>
-                <a class="btn btn-purple"  data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Tambahsatuan">Tambah Data</a>
+                <a href="{{ url('laporanstok/cetakpdf') }}" class="btn btn-purple">PDF</a>
             </div>
-             <div class="card-body">
+            <div class="card-body">
                 @if (Session::has('success'))
                     <div class="alert alert-success" role="alert">
                         {{ Session::get('success') }}
                     </div>
                 @endif
-                       {{-- <table class="table" width="100%">
+                       <table class="table" width="100%">
                           <thead>
                              <tr>
                                 <th class="border-bottom-0" width="1%" scope="col">NO</th>
-                                <th scope="col">SATUAN</th>
-                                <th scope="col">KETERANGAN</th>
-                                <th width="20%" scope="col">AKSI</th>
+                                <th class="border-bottom-0" scope="col">KODE BARANG</th>
+                                <th class="border-bottom-0" scope="col">BARANG</th>
+                                <th class="border-bottom-0" scope="col">STOK AWAL</th>
+                                <th class="border-bottom-0" scope="col">JUMLAH MASUK</th>
+                                <th class="border-bottom-0" scope="col">JUMLAH KELUAR</th>
+                                <th class="border-bottom-0" scope="col">TOTAL STOK</th>
                              </tr>
-                          </thead>
                           <tbody>
-                            @if($satuanbarang->count() > 0)
-                            @foreach ($satuanbarang as $row )
+                            @if($barangstok->count() > 0)
+                            @foreach ($barangstok as $row )
                             <tr>
                                 <th>{{ $loop->iteration }}</th>
-                                <td>{{ $row->satuanbarang_nama }}</td>
-                                <td>{{ $row->satuanbarang_ket }}</td>
-                                <td>
-                                    <div class="flex align-items-center list-user-action">
-                                        <a class="btn btn-sm bg-secondary" data-toggle="tooltip" data-id="{{ $row->id }}" data-placement="top" title=""
-                                            data-original-title="Edit" href="{{ url('/satuanbarang/' . $row->id . '/edit' )}}"><i class="ri-pencil-line mr-0"></i></a>
-                                        <a class="btn btn-sm bg-danger delete" data-toggle="tooltip" data-id="{{ $row->id }}" data-placement="top" title=""
-                                            data-original-title="Hapus" href="#"><i class="ri-delete-bin-line mr-0"></i></a>
-                                    </div>
-                                 </td>
+                                <td>{{ $row->barang_kode }}</td>
+                                <td>{{ $row->barang_nama }}</td>
+                                <td>0</td>
+                                <td>{{ $row->barang_masuk }}</td>
+                                <td>{{ $row->barang_keluar }}</td>
+                                <td>{{ $row->barang_stok }}</td>
                             </tr>
                             @endforeach
                             @else
                             <tr>
-                                <td class="text-center" colspan="5">Data Satuan Barang Tidak Ada</td>
+                                <td class="text-center" colspan="7">Data Laporan Stok Barang Masih Kosong</td>
                             </tr>
                             @endif
                           </tbody>
-                       </table> --}}
-                    </div>
+                       </table>
+                    </>
                  </div>
              </div>
           </div>
